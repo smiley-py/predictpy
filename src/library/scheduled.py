@@ -2,12 +2,13 @@
 import threading
 import datetime
 import time
-from .batch import CustomBatch
+from .gmail import CustomGmail
+from .outlook import CustomOutlook
 
 
 class CustomScheduled():
-    def __init__(self, API):
-        self.thread_a = CustomThread(1, "Thread-1", API)
+    def __init__(self):
+        self.thread_a = CustomThread(1, "Thread-1")
         self.msg = ''
 
     def start(self):
@@ -21,6 +22,7 @@ class CustomScheduled():
     def stop(self):
         try:
             self.thread_a.stop()
+            self.thread_a = CustomThread(1, "Thread-1")
         except Exception as e:
             self.msg = "" + str(e)
 
@@ -36,36 +38,20 @@ class CustomScheduled():
 
 
 class CustomThread (threading.Thread):
-    def __init__(self, threadID, name, API):
+    def __init__(self, threadID, name):
         threading.Thread.__init__(self)
         self.threadID = threadID
         self.name = name
-        self.delay = 10
-        self.api = API
+        self.delay = 20
 
         self.stoprequest = threading.Event()
 
-    def run_batch_file(self):
-        self.api.login()
-        self.api.get_agent()
-
-        self.delay = int(self.api.agent["delay"])
-
-        if self.api.agent["is_scheduled"] == "1":
-            dt = datetime.datetime.strptime(self.api.agent["start_time"].split('+')[0],
-                                            "%Y-%m-%dT%H:%M:%S")
-
-            if datetime.datetime.now() >= dt:
-                batch = CustomBatch(
-                    self.api.agent["path"], self.api.agent["script_content"], self.api.agent["script_inputs"])
-                batch.launch()
-
-                self.api.agent["output"] = batch.output
-                self.api.agent["result"] = batch.result
-                self.api.agent["is_scheduled"] = 2
-
-                self.api.set_agent()
-                print(dt, ' executor.bat was triggered.', '\n')
+    def run_mailbox_process(self):
+        print("thread running ... ")
+        gmail = CustomGmail()
+        gmail.read_email_from_gmail()
+        outlook = CustomOutlook()
+        outlook.read_email_from_outlook()
 
     def start(self):
         threading.Thread.start(self)
@@ -79,5 +65,5 @@ class CustomThread (threading.Thread):
 
     def run(self):
         while not self.stoprequest.isSet():
-            self.run_batch_file()
+            self.run_mailbox_process()
             time.sleep(self.delay)

@@ -1,5 +1,5 @@
-## zagent
-This is a program to launch batch files in localhost via bulletin-api. It is possible to run different operating system commands.
+## mailrobot
+This is a program to run basic commands via sending email. It is possible to use mailbox types.
 
 ## FIRST
 
@@ -9,7 +9,7 @@ This is a program to launch batch files in localhost via bulletin-api. It is pos
 ## SECOND
 
 ```
--- zagent folder right click open in terminal
+-- mailrobot folder right click open in terminal
 
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt

@@ -1,3 +1,3 @@
 from .scheduled import CustomScheduled
-from .api import CustomApi
-from .batch import CustomBatch
+from .gmail import CustomGmail
+from .outlook import CustomOutlook

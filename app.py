@@ -1,20 +1,14 @@
 import os
 import sys
 import cmd
-from src import CustomApi, CustomMenu, CustomScheduled
+from src import CustomMenu, CustomScheduled
 
-ID = '1'
-APIURL = 'http://127.0.0.1:8000/'
-USERNAME = 'admin'
-PASSWORD = 'admin'
-
-API = CustomApi(ID, APIURL, USERNAME, PASSWORD)
 menu = CustomMenu()
-service1 = CustomScheduled(API)
+service1 = CustomScheduled()
 
 
 class MyShell(cmd.Cmd, object):
-    intro = 'Welcome to the agent shell.   Type help or ? to list commands.\n'
+    intro = 'Welcome to the Mail Robot shell.   Type help or ? to list commands.\n'
     prompt = '[Shell Prompt] :'
 
     # ----- basic commands -----
