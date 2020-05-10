@@ -1,5 +1,5 @@
 ## mailrobot
-This is a program to run basic commands via sending email. It is possible to use mailbox types.
+This is a program to run basic commands via sending email. It is possible to use a lot of mailbox types.
 
 ## FIRST
 
