@@ -48,8 +48,8 @@ class CustomThread (threading.Thread):
 
     def run_mailbox_process(self):
         print("thread running ... ")
-        gmail = CustomGmail()
-        gmail.read_email_from_gmail()
+        # gmail = CustomGmail()
+        # gmail.read_email_from_gmail()
         outlook = CustomOutlook()
         outlook.read_email_from_outlook()
 
