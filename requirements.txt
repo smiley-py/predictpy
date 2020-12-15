@@ -2,4 +2,3 @@ requests
 pathlib
 regex
 html2text
-
